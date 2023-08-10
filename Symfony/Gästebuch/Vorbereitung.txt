@@ -1,0 +1,13 @@
+Nachdem das Symfony Directory erstellt wurde, die .env Datei checken und auf die richtige Datenbank anpassen.
+/.env
+und in der doctrine.yaml kann man es entweder mit '%env(resolve:DATABASE_URL)%' übernehmen oder mit:
+
+um eine bessere verbindung mit Datenbanken zu haben verwendet man Doctrine ein Addon was einfach mit dem befehl composer require symfony/orm-pack
+
+dbal: (url: entfernen)
+	dbname:
+	host:
+	port:
+	user:
+	password:
+	driver:
