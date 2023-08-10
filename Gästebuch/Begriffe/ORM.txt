@@ -1,3 +1,0 @@
-ORM steht für object-relational mapping. 
-
-ORM ist dafür da, dass es eine Verbindung zwischen dem Programmierten Code und einer Relationalen Datenbank aufbaut.
