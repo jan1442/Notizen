@@ -1,0 +1,19 @@
+easyadmin
+
+folgende function zum verstehen:
+
+	public function configureMenuItems(): iterable
+	{
+ 						Displayed name		Icon	     "Route"
+		yield MenuItem::linktoRoute('Back to the website', ' fas fa-home', 'homepage');  erstellt einen Menüpunkt mit dem namen "Back to the Website" 
+												 welcher ein home icon hat und anhand der "route"
+												 zurück zu der pre-destinierten homepage führt.
+		
+		yield MenuItem::linktoCrude('Conferences', 'fas fa-map-marker-alt', Conference::class');  erstellt einen Menüpunkt mit dem namen "Conferences"
+													  welcher ein Standort Icon hat und anhand des "Cruds"
+													  zu dem Conferences Abschnitt führt.
+		
+		yield MenuItem::linktoCrud('Comment', fas fa-comments', Comment::class');  erstellt einen Menüpunkt mit dem namen "Comments"
+											   welcher ein Sprechblasen Icon hat und anhand der "Cruds"
+											   zu dem Comments Abschnitt führt.
+	}
