@@ -8,8 +8,8 @@ Entweder ganz einfach mit dem command "symfony console make:controller NameContr
 oder unter myproject/src/Controller eine neue .php datei erstellen mit dem gewünschten controller namen.
 die Datei wird gefüllt mit
 
-namespace App\Controller; dies dient dazu hinzuweisen, dass die gewünschten Dateien aus dem richtigen pfad benutzt werden. Da wir in der Controller datei hier auch nur features benutzen werden
-die für Controller gedacht sind stellen wir es damit sicher. 
+namespace App\Controller; dies dient dazu hinzuweisen, dass die gewünschten Dateien aus dem richtigen pfad benutzt werden. Da wir in der Controller datei hier auch
+				 nur features benutzen werden die für Controller gedacht sind stellen wir es damit sicher. 
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController; dies dient dazu, features aus dem Abstract Controller zu benutzen

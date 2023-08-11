@@ -1,0 +1,4 @@
+Ein slug ist ein unique identifier in einer url der von menschen gelesen werden kann z.B. https://google/Wasser/54844as8d75a1d5as7da514
+                                                                                                       /slug/   id
+slugs werden also benutzt um url's für Menschen besser lesbar und verständlicher zu machen.
+nihct so wie die nicht so einfach lesbare und merkbare id                                                                                                

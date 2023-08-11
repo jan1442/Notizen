@@ -1,0 +1,27 @@
+Twig ist dafür da, dass man HTML einfacher und effektiver in bezug mit komplexeren und oder aufwändigeren PHP Projekten benutzen kann.
+Man kann zum Beispiel "if" statements oder "for" schleifen in die HTML datei ganz einfach implementieren.
+
+es vereinfacht auch mehrere Pfade mit verschiedenen Websites zu haben. Man hat immer eine base.html.twig und kann diese dann einfach in den anderen twig dateien,
+mit folgendem command reinziehen, {% extends 'base.html.twig' %} . Dadurch wird alles was in der base HTML drinnen steht auch in die gewünschte Twig datei extended.
+ 
+
+Um auf die einzelnen Attribute oder Elemente in Twig zuzugreifen benutzt man einen "."
+z.B. {id: conference.id}
+
+{% %} erhalten anweisungen wie z.B. eine "for" schleife,
+
+{% for ... %}
+
+
+{{ }} benutzt man um etwas auszugeben,
+
+z.B. ein Objekt ("conference") was wir durch __toString bereits in einen String umwandelten.
+
+{{ conference }} würde also dieses Objekt als String anzeigen.
+
+
+"|" wird benutzt um einen filter zu signalisieren
+
+z.B. {{ comments|length }}
+
+der Filter transformiert diesen Wert. in diesesm Fall liefert er die Anzahl der Kommentare

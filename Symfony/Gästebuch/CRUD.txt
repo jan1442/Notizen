@@ -1,0 +1,12 @@
+Der Begriff CRUD setzt sich aus folgenden Begriffen zusammen:
+
+Create, Datensatz anlegen
+Read (Retrieve), Datensatz lesen
+Update, Datensatz Updaten
+Delete, Datensatz löschen
+
+in SQL heißen diese:
+INSERT = Create
+SELECT = Read
+UPDATE = Update
+DELETE = Delete

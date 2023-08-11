@@ -6,26 +6,25 @@ Status:
 Man kann ganz einfach den Status von dem Repository abrufen mit dem Command: git status
 um eben nach zu schauen ob es veränderungen gab wenn ja welche.
 
-Staging: mit "git add" kann man gewünschte Dateien auf den Staging bereich bringen. Man kann es sich vorstellen wie ein Boarding bereich in einem Flugzeug.
-mit "git rm" wird benutzt um eine Datei zu entfernen. (wichtig ist es den vollen Dateinamen zu benutzen also test.txt
+Staging: mit "git add" kann man gewünschte Dateien auf den Staging bereich bringen. Man kann es sich vorstellen wie ein Boarding bereich in einem Flugezeug.
+ "git rm" wird benutzt um eine Datei zu entfernen. (wichtig ist es den vollen Dateinamen zu benutzen also test.txt.
 
 Committen:
-Um die Dateien aus dem Stage oder "Boarding bereich" weiter zu bringen benutzt man den Command "git commit -m "Commit Message"
-dadurch werden alle veränderungen die gemacht wurden committed. Als Beispiel sind die Veränderungen die vorher im "Boarding bereich" waren jetzt im "Flugzeug"
+um die dateien aus dem Stage oder "Boarding bereich" weiter zu bringen benutzt man den Command "git commit -m "Commit Message"
+dadurch werden alle verämderungen die gemacht wurden committed. Als Beispiel sind die Veränderungen die vorher im "Boarding bereich" waren jetzt im "Flugzeug"
 und warten darauf an ihrem Ziel zu erreichen.
 
 Remote Repository:
-Ein Remote Repository ist in diesem Beispiel unser "Reiseziel". Es ist ein Repository welches online auf Seiten wie GitHub oder BitBucket existieren darf.
+Ein Remote Repository ist in diesem Beispiel unser "Reiseziel". Es ist ein repository welches online auf Seiten wie Github oder Bitbucket existieren darf.
 
-Geht man auf Github und erstellt ein neues Repository erhält man eine URL. Diese kombiniert man dann mit folgendem Command, "git remote add origin https://...".
+Geht mam auf Github un erstellt ein neues Repository erhält man eine URL. Diese kombiniert man dann mit folgendem Command. "git remote add origin https://....".
 
 Jetzt wurde zwischen unserem Lokalen Repository und dem auf Github eine Verbindung aufgebaut.
 
-Ein letzter Command genügt um das Lokale Repository hochzuladen, "git push origin master".
+Ein letzter Commandgenügt um das lokale repository hochzuladen, "git push origin master".
 
-Es gibt diesen Befehl aber auch in die andere Richtung nämlich "git pull origin master". Dieser nimmt änderungen die in dem remote repository gemacht worden und verändert dann
-die Dateien aus dem lokalen Repository.
-
+Es gibt diesen Befehl aber auch in die andere Richtung nämlich "git pull origin master". Dieser nimmt änderungen die in dem remote repository gemacht wurden und verändert dann
+die Dateien aus dem lokalen repository.
 
 Klonen:
 um ein Repository zu klonen hat man den Command "git clone https://"
@@ -33,10 +32,10 @@ um ein Repository zu klonen hat man den Command "git clone https://"
 Branches:
 Ein branch ist wie eine Kopie des Originals. Falls man mit mehreren leuten an dem selben projekt beschäftigt ist kann es sein, dass wenn man
 das Repository ändert die Mitarbeiter behindert werden.
-Branches verhindern dies da man das veränderte Repository als Branch hochladen kann. 
+Branches verhinder dies da man das veränderte Repository als Branch höchlädt ohne das Original zu verändern.
 
 Einen branch erstellt man einfach mit dem Command "git branch name"
-dadurch wurde der Branch erstellt, jetzt müssen wir aber noch in ihn rein. 
+dadurch wurde der branch erstellt, jetzt müssen wir aber nich in ihn rein.
 Dafür ist der Command "git checkout name"
-jetzt kann man ohne sorgen an dem Branch weiter arbeiten. Wenn man den Branch verbinden möchte mit dem master navigiert man erstmal wieder zurück in den master "git checkout master"
-und zum Mergen ist der Command "git merge name"
+jetzt kann man ohne sorgen an dem branch weiter arbeiten. Wenn man den Branch verbinden möchte mit dem master, navigiert man erstmal wieder zurück in den master "git checkout master"
+und zum Mergen ist der Command "git merge name".
