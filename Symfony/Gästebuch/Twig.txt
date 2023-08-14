@@ -1,5 +1,6 @@
 Twig ist dafür da, dass man HTML einfacher und effektiver in bezug mit komplexeren und oder aufwändigeren PHP Projekten benutzen kann.
 Man kann zum Beispiel "if" statements oder "for" schleifen in die HTML datei ganz einfach implementieren.
+alle Twig dateien werden in dem Template ordner abgespeichert.
 
 es vereinfacht auch mehrere Pfade mit verschiedenen Websites zu haben. Man hat immer eine base.html.twig und kann diese dann einfach in den anderen twig dateien,
 mit folgendem command reinziehen, {% extends 'base.html.twig' %} . Dadurch wird alles was in der base HTML drinnen steht auch in die gewünschte Twig datei extended.
