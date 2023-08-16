@@ -1,0 +1,13 @@
+Curl: steht für "Client URL".
+
+Curl ist ein command tool um zwischen dem Gerät und dem Server über ein Terminal zu kommunizieren.
+Über ein CLI (command line interface) setzt der User fest mit welcher Server URL er interagieren will. 
+
+Verschiedene Arten Curl commands zu benutzen sind die folgenden: APIs testen, daten aus Quellen runterladen, websiten testen und redirects aus dem Terminal folgen.
+
+Curl ist in Windows und macOS vorinstalliert. Ansonsten kann man es von der Curl website herunterladen.
+
+Ein Beispiel für einen Command wäre: curl [options] [URL] | curl GET https://127.0.0.1:8000
+
+man kann -X einbauen, welches ein alias für --request ist                                                             alias's: 
+																-X = --request
