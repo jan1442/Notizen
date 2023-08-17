@@ -1,157 +1,61 @@
-Nach dem Start des Projekts erstmal ide Verbindung zu der Datenbank prüfen und oder einrichten. Nach der vorbereitung ist der 1ste Schritt,
-
-
-Controller erstellen:
-2 Controller zu erstellen, einmal den KonferenzController und den KommentarController.
-
-Entities erstellen:
-Danach auch jeweils zu den erstellten Controller eine Entity erstellen, also Konferenz.php und Kommentar.php, in diesem Fall brauchen wir bei der Konferenz: Stadt(string),
-Jahr(int) und isInternational(bool). Und bei dem Kommentar brauchen wir: Author(string), text(text),email(string), createdAt(datetime_immutable) und photoFilename(string).
-
-Da wir in diesem Falle eine Verknüpfung der beiden Entities brauchen können wir dies auch ihm nach hinein machen. Konferenz verbinden mit Kommentar.
-
-
-
-
-
-Admin backend:
-Um ein Admin backend einzurichten muss man erstmal symfony composer req "admin:^4" mit einbeziehen.
-
-mit dem Befehl "make:admin:dashboard" wird eine DashboardController erstellt.
-
-Um eine bessere Admin Oberfläche zu schaffen werden jetzt CRUDS mit einbezogen. "make:admin:crud" 1 und Standartwerte übernehmen für Konferenz und danach noch einmal für die Kommentare.
-die erstellten CRUDS in dem DashboardController verlinken.
-
-Conference Admin back end:
-Dashboard design anpassen (Beispiel: yield MenuItem::linkToCrud('Conferences', 'fas fa-map-marker-alt', Conference::class);
-
-Danach die funktionen der CRUDS und des Routing buttons in dem admin dashboard einrichten.
-
-Ein wichtiger Schritt ist es in der Conference Entity eine Klasse zu erstellen welche die __toString methode benutzt. 
-
-
-Comment Admin back end:
-in dem CommentCrudController müssen einige dinge einbezogen werden.
-
-danach eine funktion mit der configureCrud methode erstellen welche erwartet einen Crud zu bekommen. Diese dient dazu einen Datatable in dem admin backend anzuzeigen.
-
-bei bedarf eine Funktion erstellen für einen Filter button. Dies funktioniert mit der Methode: configureFilters und die Funktion will einen Filter returned haben.
-
-Erstmal wird eine neue Funktion erstellt mit der configureFields methode welche einen iterable returned haben will.
-um die Daten zu konfigurieren über das admin back end, erstellen wir jetzt eine Methode dafür.
-ein Beispiel dazu: "yield AssociationField::new('conference');" dies erstellt ein Assoziationsfeld das bedeutet es erkennt die verschiedenen Konferenzen und lässt dich dann
-unter den verschiedenen wählen. (wenn man eines der Felder nicht im index angezeigt haben möchte kann man unter seine zeile ->hideOnIndex() eingeben.
-
-Da wir in diesem Beispiel einen Dateimmutable haben müssen wir hier noch definieren wie dieser auszusehen hat (format).
-In diesem Beispiel sah der Aufbau so aus:
-
-$createdAt = DateTimeField::new('createdAt')->setFormTypeOptions([
-	'years' => range(date('Y'), date('Y') + 5),
-	'widget' => 'single_text',
-      ]);	
-
-das Objekt createdAt beinhaltet das DateTimeField mit dem namen 'createdAt', ... ?
-
-
-jetzt muss noch festgelegt werden, wie und wo dieses Feld angezeigt wird.
-mit einem if statement klappt das ganz einfach.
-
-if (Crud::PAGE_EDIT === $pageName) {
-	yield $createdAt->setFormTypeOption('disabled', true;
-	} else {
-	     yield $createdAt;
-	}
-
-um es auf den Punkt zu bringen, das If statement wird ausgeführt wenn der Crud PAGE_EDIT ausgeführt wird,
-darauf wird man weitergeleitet zu dem Editor wo man die bereits festgelegten felder sieht und ein neues welches demnach dann unser Datumsfeld ist.
-
-
-
-
-Benutzeroberfläche erstellen:
-
-
-um das User interface zu erstellen benutzen wir HTML aber kein pures HTML sondern "Twig".
-
-die Base twig dafür zu verändern ist in diesem Fall nicht gut bzw man kann es besser lösen.
-dafür erstellen wir ein neues Verzeichnis im Templates ordner "conference" und auch eine neue Twig datei namens "conference.html.twig"
-
-diese soll dann aus dem base twig heraus extenden aber die blöcke title und body neu definieren.
-
-ein Beispiel zur erklärung:
-
-   {% extends 'base.html.twig' %} 					versteht sich von selbst.
-
-   {% block title %} Conference Guestbook{% endblock %}			erstellt den Titel der Seite.
-
-   {% block body %}
-	<h2>Give your feedback!</h2>					erstellt die überschrift.
-
-	{% for conference in conferences %}				hier einer der Gründe warum man Twig benutzt und nicht pures HTML.
-	   <h4>{{ conference }}</h4>                                   
-	{% endfor %}                                                    eine for schleife wird erstellt bis jede {{ conference }} gelisted wurde.
-   {% endblock %}
-	
-
-
-jetzt muss man Twig in dem Controller aufrufen.
-
-in unserem ConferenceController müssen wir 2 neue "..." einfügen nämlich
-
-use App\Repository\ConferenceRepository; sorgt dafür dass der Controller zugriff auf die daten aus dem ConferenceRepository hat.
-use Twig\Environment; sorgt dafür dass wir jegliche Twig dateien aufrufen können.
-
-
-unter unserer homepage route ersetzen wir die funktion durch "index(Environment $twig, Conference $conferenceRepository): Response"
-
-diese rechnet mit einer ganz einfach response welche unsere Twig datei sein wird:
-
-return new Response($twig->render('conference/conference.html.twig', [
-	'conferences' => $conferenceRepository->findAll(),
-]));
-
-
-Da wir aber eine bessere Lösung brauchen um die einzelnen Konferenzen aufzurufen müssen wir eine weitere Route erstellen.
-
-
-#[Route('/conference/{id}', name: 'conference')]							    jede Konferenz hat ihre eigene ID somit kann der Controller letztendlich zwischen diesen unterscheiden
-public function show(Environment $twig, Conference, CommentRepository $commentRepository): Response
-
-return new Response($twig->render('conference/show.html.twig', [					    eine neue Twig datei die wir gleich gestalten werden wird gerendert
-	'conference' => $conference,                                                                        
-	'comments' => $commentRepository->findBy(['conference' => $conference], ['createdAt' => 'DESC']),   hier wird gesagt wie die Kommentare der Datenbank, auf der Website angezeigt werden.
-
-
-show.html.twig:
-
-(nur wesentliche änderungen werden gezeigt)
-
-{% if comments|length > 0 %}												if statement für wenn die Kommentare länger als 0 sind werden sie angezeigt, wenn nicht dann wird der text am ende wiedergegeben.
-	{% for comment in comments %}												
-		{% if comment.photofilename %}										for schleife um Foto, Name des Autors, veröffentlichungsdatum und text wiederzugeben +(if statement für die photos falls es 1 gibt oder nicht).
-			<img src="{{ asset('uploads/photos/' ~ comment.photofilename) }}" style="max-width: 200px" />
-		{% endif %}
-
-		<h4>{{ comment.author }}</h4>
-		<small>
-		    {{ comment.createdAt|format_datetime('medium', 'short') }}
-		</small>
-
-		<p>{{ comment.text }}</p>
-	{% endfor %}
-     {% else %}
-	<div>No comments have been posted yet for this conference.</div>
-     {% endif %}	
-
-
-
-
-um von der homepage aus auf die Konferenzen zu verweisen macht man ganz einfach eine href verlinkung der "{{ path('conference', { id: conference.id }) }}" in die for schleife.
-
-
-
 Paginator:
 
+damit man nicht tausende von einträgen auf einer Seite hat sollte man einen paginator erstellen welcher es ermöglicht auf verschiedene Seiten umzublättern wie in einem Buch.
+
++use App\Entity\Conference;                                  
++use Doctrine\ORM\Tools\Pagination\Paginator;
+
+mit der Zeile public const PAGINATOR_PER_PAGE = "..."; kann man auswählen wie viele einträge eine Seite später haben wird.
+
+jetzt muss noch eine neue methode erstellt werden.
+
+eine getCommentPaginator methode welche öffentlich ist, (Conference $conference, int $offset) mit einbezieht und einen Paginator returned braucht.
+
+Nun bauen wir eine query ein die wir später auch benutzen werden um die angefragten kommentare anzuzeigen.
+
+
+	$query = $this->createQueryBuilder('c')					erstellt den querybuilder namens c?
+	   ->andWhere('c.conference = :conference')				sucht aus dass unsere conference Datenbank benutzt wird. c.conference =:conference zu schreiben schützt for sql injections.
+	   ->setParameter('conference', $conference)				?
+	   ->orderBy('c.createdAt', 'DESC')					ordnet nach erstellungsdatum also unserer createdAt klasse.
+   	   ->setMaxResults(self::PAGINATOR_PER_PAGE)				wählt anhand unseres fetgelegten PAGINATOR_PER_PAGE wertes aus, wie viel einträge pro seite sein werden
+	   ->setFirstResult($offset)						?
+	   ->getQuery()								gibt uns die erstellte query.
+	;
+
+	return new Paginator($query);
+   
+
+Jetzt noch den ConferenceController anpassen sodass die ID route auc noch (Request $request) einbezieht.
+
+und in diese Route methode dann 2 zeilen hinzufügen:
+
+$offset = max(0, $request->query->getInt('offset', 0));				?
+$paginator = $commentRepository->getCommentPaginator($conference, $offset); 	? erstellt $paginator welcher aus der getCommentPaginator besteht und aus dem commentRepository gezogen wird.
+
+
+in der Response unsere alte weise comments anzuzeigen entfernen und das neue einfügen nämlich:
+
+	'comments' => $paginator,									entnimmt daten aus comments und füllt diese in den paginator ein welcher dann unsere anzeige baut
+	'previous' => $offset - CommentRepository::PAGINATOR_PER_PAGE,					macht den previous button welcher uns zurück leitet
+	'next' => min(count($paginator), $offset + CommentRepository::PAGINATOR_PER_PAGE),		macht den next button welcher uns auf die nächste seite bringt.
+
+
+zuletzt noch Twig anpassen:
+
+
+	{% if comments|length > 0 %}
+		<div>There are {{ comments|length }} comments.</div>
+
+	...
+	{% endfor %}
+
+	{% if previous >= 0 %}
+		<a href="{{ path('conference', { id: conference.id, offset: previous }) }}">Previous</a>
+	{% endif %}
+	{% if next < comments|length %}
+		<a href="{{ path('conference', { id: conference.id, offset: next }) }}">Next</a>
+...
 
 
 

@@ -1,0 +1,17 @@
+APIs
+
+steht für "Application Programming Interfaces"
+
+
+GET: wird benutzt um informationen von dem Server anzufragen. (Safe). Es ist ein Safe call, da sich nichts auf dem Server verändert.
+der Server sucht die Informationen raus und teilt sie uns mit.
+
+POST: wird benutzt um einen neuen Eintrag auf dem Server hinzuzufügen. (non-idempotent) POST ist der einzige Call der "non-idempotent" ist, da jeder call einen neuen Eintrag 
+machen wird.
+
+PUT: wird benutzt um einen Eintrag zu modifizieren. (idempotent). Es ist idempotent, da nach mehrerem ausführen der selben request sich der Server nicht ändern wird,
+nur beim ersten mal.
+
+PATCH: ist fast identisch mit POST nur mit dem unterschied dass man bei Patch einzelne werte modifizieren kann, also detaillierter.
+
+DELETE: wird benutzt um Daten des Servers zu löschen. (idempotent). Es ist idempotent, da nach mehrerem ausführen des Befehls trotzdem nur einmal etwas gelöscht wird.
